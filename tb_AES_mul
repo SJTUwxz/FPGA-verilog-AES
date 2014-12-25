@@ -1,0 +1,27 @@
+`timescale 1fs/1fs
+`include "AES_mul.v"
+
+module tb_AES_mul();
+  wire [7:0] out;
+  reg [7:0] a,b;
+  
+  initial
+  begin
+    repeat(100000) begin
+      #1;
+      a<={$random}%256;
+      b<={$random}%256;
+    end
+    $stop;
+  end
+  
+  AES_mul aes(a,b,out);
+  
+  initial
+  $monitor("At time %t,a=%8b,b=%8b,out=%8b",$time,a,b,out);
+  
+endmodule
+    
+
+
+
