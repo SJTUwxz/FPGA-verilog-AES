@@ -1,0 +1,62 @@
+`timescale 1fs/1fs
+
+module AES_mul(a,b,out);
+  input [7:0] a, b;
+  output reg [7:0] out;
+  reg [7:0] temp1;
+  reg [7:0] temp2;
+  reg [7:0] temp3;
+  reg [7:0] temp4;
+  reg [7:0] temp5;
+  reg [7:0] temp6;
+  reg [7:0] temp7;
+  
+  
+  always@(b)
+  begin
+   temp1=q(a);
+   temp2=q(temp1);
+   temp3=q(temp2);
+   temp4=q(temp3);
+   temp5=q(temp4);
+   temp6=q(temp5);
+   temp7=q(temp6);
+  out=8'b0;
+
+  begin
+    if(b[7]==1) out=out^temp7;
+    if(b[6]==1) out=out^temp6;
+    if(b[5]==1) out=out^temp5;
+    if(b[4]==1) out=out^temp4;
+    if(b[3]==1) out=out^temp3;
+    if(b[2]==1) out=out^temp2;
+    if(b[1]==1) out=out^temp1;
+    if(b[0]==1) out=out^a;
+    end
+  end
+  
+  function [7:0] q(input [7:0] din);
+  begin
+    
+      
+        q[0]=din[7];
+        q[1]=din[0];
+        q[2]=din[1]^din[7];
+        q[3]=din[2]^din[7];
+        q[4]=din[3]^din[7];
+        q[5]=din[4];
+        q[6]=din[5];
+        q[7]=din[6];
+      end
+    endfunction
+        
+
+  
+  
+        
+endmodule
+
+
+
+
+
